@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils.timezone import now
 
-
 # Create your models here.
 
 # <HINT> Create a Car Make model `class CarMake(models.Model)`:
@@ -43,8 +42,8 @@ class CarModel(models.Model):
     year = models.DateField()
 
     def __str__(self):
-        return "Model Name: " + self.name + "," + \
-            "Type: " + self.car_type + "," + \
+        return "Model Name: " + self.name + ", " + \
+            "Type: " + self.car_type + ", " + \
             "Year: " + self.year
 
 # <HINT> Create a plain Python class `CarDealer` to hold dealer data

@@ -10,7 +10,7 @@ from django.utils.timezone import now
 # - __str__ method to print a car make object
 class CarMake(models.Model):
     name = models.CharField(null=False, max_length=30, default='online course')
-    description = models.CharField(max_length=1000)
+    description = models.TextField()
 
     def __str__(self):
         return "Car Name: " + self.name + "," + \

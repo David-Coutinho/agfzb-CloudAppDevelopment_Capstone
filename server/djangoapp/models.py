@@ -25,7 +25,7 @@ class CarMake(models.Model):
 # - __str__ method to print a car make object
 class CarModel(models.Model):
     car_id = models.ForeignKey(CarMake, on_delete=models.CASCADE)
-    name = models.CharField(null=False, max_length=30, default='online course')
+    name = models.CharField(null=False, max_length=30, default='car model')
     dealer_id = models.UUIDField()
 
     SEDAN = 'sedan'

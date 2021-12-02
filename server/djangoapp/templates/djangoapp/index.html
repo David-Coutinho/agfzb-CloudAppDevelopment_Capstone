@@ -79,12 +79,18 @@
             </div>
         </nav>
     <!--Add a dealer table here -->
-
+        <div>
+            <ul>
+                {% for dealer_name in dealer_names %}
+                    <li>{{ dealer_name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
     </body>
     <!-- Footer -->
     <footer class="bg-dark text-center text-white fixed-bottom">
     <!-- Grid container -->
-    <div class="container p-4">
+    <div class="container p-1">
       <!-- Section: Links -->
       <section class="">
         <!--Grid row-->

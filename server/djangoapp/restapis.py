@@ -125,7 +125,7 @@ def get_dealer_reviews_from_cf(url, dealerId):
 
 
 def analyze_review_sentiments(text):
-    api_key = 'C1Q1Wlh_ewdb3qpQCn9WpJDEmjN6XExFnGApwmnBJb_c'
+    api_key = ''
     version = '2021-08-01'
     url = 'https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/f2b0c772-190e-4ca8-9ed0-da9177825f05'
     features = Features(sentiment=SentimentOptions())

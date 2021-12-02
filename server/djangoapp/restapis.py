@@ -13,7 +13,16 @@ def get_request(url, **kwargs):
     print("GET from {} ".format(url))
     try:
         # Call get method of requests library with URL and parameters
-        response = requests.get(url, params=kwargs, headers={'Content-Type': 'application/json'})
+        if 'api_key' in kwargs:
+            params = dict()
+            params["text"] = kwargs["text"]
+            params["version"] = kwargs["version"]
+            params["features"] = kwargs["features"]
+            params["return_analyzed_text"] = kwargs["return_analyzed_text"]
+            response = requests.get(url, params=params, headers={'Content-Type': 'application/json'},
+                                                auth=HTTPBasicAuth('apikey', api_key))
+        else:
+            response = requests.get(url, params=kwargs, headers={'Content-Type': 'application/json'})
         status_code = response.status_code
         print("With status {} ".format(status_code))
         json_data = response.json()
@@ -89,8 +98,9 @@ def get_dealer_reviews_from_cf(url, dealerId):
             review_obj = DealerReview(dealership=review_doc["dealership"], purchase=review_doc["purchase"], 
                                    id=review_doc["id"], review=review_doc["review"], purchase_date=review_doc["purchase_date"],
                                    car_make=review_doc["car_make"], car_model=review_doc["car_model"], car_year=review_doc["car_year"],
-                                   name=review_doc["name"],
+                                   name=review_doc["name"], sentiment = "",
                                    )
+            review_obj.sentiment = analyze_review_sentiments(review_obj.review)
             results.append(review_obj)
 
     return results
@@ -99,6 +109,8 @@ def get_dealer_reviews_from_cf(url, dealerId):
 # def analyze_review_sentiments(text):
 # - Call get_request() with specified arguments
 # - Get the returned sentiment label such as Positive or Negative
-
+def analyze_review_sentiments(text):
+    # json_result = get_request(url, text=text, version=version, features=features, return_analyzed_text=return_analyzed_text, api_key=api_key)
+    return "positive"
 
 

@@ -108,11 +108,13 @@ def get_dealer_details(request, dealerId):
         url = "https://a44733b1.eu-gb.apigw.appdomain.cloud/api/review"
         # Get dealers from the URL
         reviews = get_dealer_reviews_from_cf(url, dealerId)
-        context = {"reviews": reviews}
         # Concat all dealer's short name
         review_names = ' '.join([review.name for review in reviews])
+        review_reviews = ' '.join([review.review for review in reviews])
+        review_sentiments = ' '.join([review.sentiment for review in reviews])
+        context = {"review_names": reviews}
         # Return a list of dealer short name
-        return HttpResponse(review_names, context)
+        return HttpResponse([review_names, review_reviews, review_sentiments], context)
 # Create a `add_review` view to submit a review
 # def add_review(request, dealer_id):
 # ...

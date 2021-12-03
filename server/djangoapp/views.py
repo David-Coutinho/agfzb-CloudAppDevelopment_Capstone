@@ -105,36 +105,49 @@ def get_dealerships(request):
 # def get_dealer_details(request, dealer_id):
 # ...
 def get_dealer_details(request, dealerId):
+    context = dict()
     if request.method == "GET":
         url = "https://a44733b1.eu-gb.apigw.appdomain.cloud/api/review"
         # Get dealers from the URL
         reviews = get_dealer_reviews_from_cf(url, dealerId)
+        context['reviews_list'] = reviews
         # Concat all dealer's short name
+        """
         review_names = ' '.join([review.name for review in reviews])
         review_reviews = ' '.join([review.review for review in reviews])
         review_sentiments = ' '.join([review.sentiment for review in reviews])
         context = {"review_names": reviews}
+        """
         # Return a list of dealer short name
-        return HttpResponse([review_names, review_reviews, review_sentiments], context)
+        # return HttpResponse([review_names, review_reviews, review_sentiments], context)
+        return render(request, 'djangoapp/dealer_details.html', context)
 # Create a `add_review` view to submit a review
 # def add_review(request, dealer_id):
 # ...
 def add_review(request, dealerId):
+    context = dict()
     # check if user is authenticated
+    #if user.is_authenticated:
     if request.method == "POST":
         url = "https://a44733b1.eu-gb.apigw.appdomain.cloud/api/review"
 
         review = dict()
-        review["id"]
-        review["name"]
-        review["review"]
-        review["purchase"]
-        review["purchase_date"]
-        review["car_make"]
-        review["car_model"]
-        review["car_year"]
+        review["id"] = car.id #int
+        review["name"] = car.name #string
+        review["review"] = car.review #string
+        review["purchase"] = car.purchase #bool
+        review["purchase_date"] = car.year.strftime("%Y")
+        review["car_make"] = car.make
+        review["car_model"] = car.model
+        review["car_year"] = car.year
         
         json_payload = dict()
         json_payload['review'] = review
 
-    json_result = post_request(url, json_payload, dealerId=dealerId)
+        json_result = post_request(url, json_payload, dealerId=dealerId)
+        redirect("djangoapp:dealer_details", dealerId=dealerId)
+    elif request.method == "GET": 
+        # query the cars with the dealer id to be reviewed
+        # the queried cars will be used in the <select> dropdown
+        context['cars']
+        return render(request, 'djangoapp/dealer_details.html', context)

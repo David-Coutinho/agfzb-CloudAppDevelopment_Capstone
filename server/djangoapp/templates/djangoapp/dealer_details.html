@@ -10,9 +10,89 @@
     <body>
 
     <!--Add a nav bar here -->
-
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{% url 'djangoapp:index' %}">
+                    <img src="static/admin/img/brand.svg" alt="<Logo>">
+                    &lt;Company Name&gt;
+                </a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Dropdown
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="#">Action</a>
+                      <a class="dropdown-item" href="#">Another action</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                  </li>
+                </ul>
+                <!--
+                <form class="form-inline my-2 my-lg-0">
+                  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+                -->
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                    <a class="btn btn-link" href="{% url 'djangoapp:add_review' %}">Add Review</a>
+                    <li>
+                        <a class="btn btn-link" href="#">({{ user.username }})</a>
+                        <a class="btn btn-link" href="{% url 'djangoapp:logout_request' %}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <form class="form-inline" action="{% url 'djangoapp:login_request' %}" method="post">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <!--TO DO: Uncollapse form controls on hover-->
+                                <input type="text" class="form-control" placeholder="Username" name="username" >
+                                <input type="password" class="form-control" placeholder="Password" name="password" >
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-light" type="submit">Login</button>
+                                </div>
+                            </div>
+                            <a class="btn btn-link" href="{% url 'djangoapp:registration_request' %}">Sign Up</a>
+                        </form>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
     <!-- Add reviews as cards -->
-
+    <div class="card-columns">
+        {% for review in reviews_list %}
+        <div class="card">
+            {% ifequal review.sentiment 'positive'%}
+            <img src="{{MEDIA_URL}}/emoji/positive.png" alt="" class="card-img-left">
+            {% ifequal review.sentiment 'neutral'%}
+            <img src="{{MEDIA_URL}}/emoji/neutral.png" alt="" class="card-img-left">
+            {% ifequal review.sentiment 'negative'%}
+            <img src="{{MEDIA_URL}}/emoji/negative.png" alt="" class="card-img-left">
+            {% else %}
+            {% endifequal %}
+            <div class="card-body">
+                <h5 class="card-title">{{ review.car_model }}, {{ review.car_make }}<br>{{ review.car_year }}</h5>
+                <p class="card-text">{{ review.review}}</p>
+            </div>
+        </div>
+        {% endofor %}
+    </div>
     </body>
 
 </html>

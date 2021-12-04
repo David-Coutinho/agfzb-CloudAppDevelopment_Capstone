@@ -128,19 +128,19 @@
           alt=""
           class="card-img-left"
         />
-        {% ifequal review.sentiment 'neutral'%}
+        {% endifequal %} {% ifequal review.sentiment 'neutral'%}
         <img
           src="{{MEDIA_URL}}/emoji/neutral.png"
           alt=""
           class="card-img-left"
         />
-        {% ifequal review.sentiment 'negative'%}
+        {% endifequal %} {% ifequal review.sentiment 'negative'%}
         <img
           src="{{MEDIA_URL}}/emoji/negative.png"
           alt=""
           class="card-img-left"
         />
-        {% else %} {% endifequal %}
+        {% endifequal %}
         <div class="card-body">
           <h5 class="card-title">
             {{ review.car_model }}, {{ review.car_make }}<br />{{

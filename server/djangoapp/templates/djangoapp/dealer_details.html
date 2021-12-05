@@ -119,37 +119,48 @@
       </div>
     </nav>
     <!-- Add reviews as cards -->
-    <div class="card-columns">
-      {% for review in reviews_list %}
-      <div class="card">
-        {% ifequal review.sentiment 'positive'%}
-        <img
-          src="{{MEDIA_URL}}/emoji/positive.png"
-          alt=""
-          class="card-img-left"
-        />
-        {% endifequal %} {% ifequal review.sentiment 'neutral'%}
-        <img
-          src="{{MEDIA_URL}}/emoji/neutral.png"
-          alt=""
-          class="card-img-left"
-        />
-        {% endifequal %} {% ifequal review.sentiment 'negative'%}
-        <img
-          src="{{MEDIA_URL}}/emoji/negative.png"
-          alt=""
-          class="card-img-left"
-        />
-        {% endifequal %}
-        <div class="card-body">
-          <h5 class="card-title">
+    <main class="container pt-3">
+      <div class="card-columns">
+        {% for review in reviews_list %}
+        <div class="card">
+          <div class="card-header">
+            {% ifequal review.sentiment 'positive'%}
+            <img
+              src="{{MEDIA_URL}}/emoji/positive.png"
+              alt=""
+              class="card-img-left"
+              width=40
+              height=40
+            />
+            {% endifequal %} {% ifequal review.sentiment 'neutral'%}
+            <img
+              src="{{MEDIA_URL}}/emoji/neutral.png"
+              alt=""
+              class="card-img-left"
+              width=40
+              height=40
+            />
+            {% endifequal %} {% ifequal review.sentiment 'negative'%}
+            <img
+              src="{{MEDIA_URL}}/emoji/negative.png"
+              alt=""
+              class="card-img-left"
+              width=40
+              height=40
+            />
+            {% endifequal %}
+          </div>
+          <div class="card-body text-center">
+            <h5 class="card-title">{{ review.name }}</h5>
+            <p class="card-text">{{ review.review}}</p>
+          </div>
+          <div class="card-footer text-center">
             {{ review.car_model }}, {{ review.car_make }}<br />{{
-            review.car_year }}
-          </h5>
-          <p class="card-text">{{ review.review}}</p>
+              review.car_year }}
+          </div>
         </div>
+        {% endfor %}
       </div>
-      {% endfor %}
-    </div>
+    </main>
   </body>
 </html>

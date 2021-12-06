@@ -126,37 +126,6 @@ def get_dealer_details(request, dealerId):
 # Create a `add_review` view to submit a review
 # def add_review(request, dealer_id):
 # ...
-"""
-def add_review(request, dealerId):
-    context = dict()
-    # check if user is authenticated
-    #if user.is_authenticated:
-    if request.method == "POST":
-        url = "https://a44733b1.eu-gb.apigw.appdomain.cloud/api/review"
-
-        review = dict()
-        review["id"] = car.id #int
-        review["name"] = car.name #string
-        review["review"] = car.review #string
-        review["purchase"] = car.purchase #bool
-        review["purchase_date"] = car.year.strftime("%Y")
-        review["car_make"] = car.make
-        review["car_model"] = car.model
-        review["car_year"] = car.year
-        
-        json_payload = dict()
-        json_payload['review'] = review
-
-        json_result = post_request(url, json_payload, dealerId=dealerId)
-        redirect("djangoapp:dealer_details", dealerId=dealerId)
-    elif request.method == "GET": 
-        # query the cars with the dealer id to be reviewed
-        # the queried cars will be used in the <select> dropdown
-        context['cars'] = {}
-        context['dealerId'] = dealerId
-        return render(request, 'djangoapp/add_review.html', context)
-"""
-# Create a `add_review` view to submit a review
 def add_review(request, dealerId):
     context = dict()
     if request.method == 'GET':
@@ -178,7 +147,7 @@ def add_review(request, dealerId):
             purchase_date = request.POST['purchasedate']
             
             review = dict()
-            review["id"] = 0 #change id
+            review["id"] = 10 #change id
             if 'purchasecheck' in request.POST:
                 review["purchase"] = True
             else:
@@ -194,5 +163,6 @@ def add_review(request, dealerId):
             json_payload = dict()
             json_payload["review"] = review
             url = 'https://a44733b1.eu-gb.apigw.appdomain.cloud/api/review'
+            
             post_request(url, json_payload, dealerId=dealerId)
             return redirect("djangoapp:dealer_details", dealerId=dealerId)

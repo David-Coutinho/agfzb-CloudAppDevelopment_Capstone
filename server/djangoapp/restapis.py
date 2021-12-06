@@ -134,7 +134,10 @@ def get_dealer_reviews_from_cf(url, dealerId):
                                    car_make=review_doc["car_make"], car_model=review_doc["car_model"], car_year=review_doc["car_year"],
                                    name=review_doc["name"], sentiment = "",
                                    )
-            review_obj.sentiment = analyze_review_sentiments(review_obj.review)
+            if review_obj.review:
+                review_obj.sentiment = analyze_review_sentiments(review_obj.review)
+            else:
+                review_obj.sentiment = 'neutral'
             results.append(review_obj)
 
     return results

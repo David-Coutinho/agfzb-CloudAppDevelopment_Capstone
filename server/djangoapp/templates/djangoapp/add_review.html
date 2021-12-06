@@ -14,8 +14,9 @@
     <!--Add review form here -->
     <main class="container pt-6">
         <form action="{% url 'djangoapp:add_review' dealerId %}" method="post" class="border border-dark p-4 w-auto h-auto text-center bg-light">
+            {% csrf_token %}
             <div class="container">
-                <legend class="text-center">Review for</legend>
+                <legend class="text-center">Review for {{dealer.full_name}}</legend>
                 <hr>
                 <div class="form-group">
                     <label for="content"><b>Review</b></label>

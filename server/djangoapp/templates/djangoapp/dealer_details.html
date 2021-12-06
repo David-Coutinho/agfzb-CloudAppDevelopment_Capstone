@@ -149,11 +149,12 @@
           </div>
           <div class="card-body text-center">
             <h5 class="card-title">{{ review.name }}</h5>
-            <p class="card-text">{{ review.review}}</p>
+            <p class="card-text">{{ review.review }}</p>
           </div>
           <div class="card-footer text-center">
-            {{ review.car_model }}, {{ review.car_make }}<br />{{
-              review.car_year }}
+            {{ review.car_model }}, {{ review.car_make }}
+            <br>
+            {{review.car_year }}
           </div>
         </div>
         {% endfor %}

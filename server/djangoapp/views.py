@@ -165,7 +165,7 @@ def add_review(request, dealerId):
         url = "https://a44733b1.eu-gb.apigw.appdomain.cloud/api/dealership"
         dealer = get_dealer_by_id_from_cf(url, dealerId)
         if dealer:
-            context['dealer'] = dealer.full_name
+            context['dealer'] = dealer[0]
         else:
             context['dealer'] = {'full_name': 'No dealer'}
         return render(request, 'djangoapp/add_review.html', context)
@@ -178,13 +178,14 @@ def add_review(request, dealerId):
             purchase_date = request.POST['purchasedate']
             
             review = dict()
+            review["id"] = 0 #change id
             if 'purchasecheck' in request.POST:
                 review["purchase"] = True
             else:
                 review["purchase"] = False
             review["dealership"] = dealerId
             review["review"] = content
-            review["name"] = user.username
+            review["name"] = user.get_full_name()
             review['car_make'] = car.car_id.name
             review['car_model'] = car.name
             review['car_year'] = car.year.strftime("%Y")

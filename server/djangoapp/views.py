@@ -11,6 +11,7 @@ from django.contrib import messages
 from datetime import datetime
 import logging
 import json
+import uuid
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -133,6 +134,7 @@ def add_review(request, dealerId):
         context['cars'] = CarModel.objects.filter(dealer_id=dealerId)
         url = "https://a44733b1.eu-gb.apigw.appdomain.cloud/api/dealership"
         dealer = get_dealer_by_id_from_cf(url, dealerId)
+        print("Dealer: ", dealer)
         if dealer:
             context['dealer'] = dealer[0]
         else:
@@ -147,7 +149,7 @@ def add_review(request, dealerId):
             purchase_date = request.POST['purchasedate']
             
             review = dict()
-            review["id"] = 10 #change id
+            review["id"] = uuid.uuid4().hex
             if 'purchasecheck' in request.POST:
                 review["purchase"] = True
             else:

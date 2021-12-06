@@ -111,6 +111,7 @@ def get_dealer_details(request, dealerId):
         # Get dealers from the URL
         reviews = get_dealer_reviews_from_cf(url, dealerId)
         context['reviews_list'] = reviews
+        context['dealerId'] = dealerId
         # Concat all dealer's short name
         """
         review_names = ' '.join([review.name for review in reviews])
@@ -149,5 +150,6 @@ def add_review(request, dealerId):
     elif request.method == "GET": 
         # query the cars with the dealer id to be reviewed
         # the queried cars will be used in the <select> dropdown
-        context['cars']
-        return render(request, 'djangoapp/dealer_details.html', context)
+        context['cars'] = {}
+        context['dealerId'] = dealerId
+        return render(request, 'djangoapp/add_review.html', context)
